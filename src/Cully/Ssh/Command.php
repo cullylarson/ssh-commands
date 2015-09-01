@@ -51,14 +51,14 @@ class Command {
         $commandWithExit = $command . ';echo -en "\n$?"';
 
         // execute the command
-        $stream = ssh2_exec($this->$commandWithExit, $command, $pty, $env, $width, $height, $width_height_type);
+        $stream = ssh2_exec($this->session, $commandWithExit, $pty, $env, $width, $height, $width_height_type);
 
         /*
          * Get the output
          */
 
         $errorStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
-        $standardStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDDIO);
+        $standardStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
 
         stream_set_blocking($errorStream, true);
         stream_set_blocking($standardStream, true);
