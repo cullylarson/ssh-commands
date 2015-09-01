@@ -1,7 +1,7 @@
 {
   "name": "cullylarson/ssh-commands",
   "type": "library",
-  "description": "Library for executing remote commands, via SSH.  Supports exit status and command output.",
+  "description": "A library for executing remote commands, via SSH.  Supports exit status, standard output, and error output.",
   "keywords": ["ssh", "command-line", "remote"],
   "homepage": "https://github.com/cullylarson/ssh-command",
   "license": "MIT",
