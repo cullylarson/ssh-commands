@@ -27,6 +27,14 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $command->getExitStatus());
     }
 
+    public function testGetCommand() {
+        $command = new Command($this->session);
+
+        $command->exec("ls");
+
+        $this->assertEquals("ls", $command->getCommand());
+    }
+
     public function testSuccess() {
         $command = new Command($this->session);
 
@@ -65,6 +73,14 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         $command->exec("ls a/path/that/hopefully/doesnt/exist/if/it/does/craziness");
 
         $this->assertTrue($command->failure());
+    }
+
+    public function testDidntSucceed() {
+        $command = new Command($this->session);
+
+        $command->exec("ls a/path/that/hopefully/doesnt/exist/if/it/does/craziness");
+
+        $this->assertFalse($command->success());
     }
 
     public function testOutput() {
