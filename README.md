@@ -22,10 +22,10 @@ php composer.phar require cullylarson/ssh-commands
     ssh2_auth_agent($session, "my_username") or die("Couldn't authenticate.");
     ```
 
-1. If you're using RSA, and you got an auth error, you might need to run this command:
+    If you're using RSA, and you got an auth error, you might need to run this command:
 
     ```
-    eval `ssh-agent -s` && ssh-add
+    $ eval `ssh-agent -s` && ssh-add
     ```
 
 1. Create an instance of `Cully\Ssh\Command`, passing your connection resources to the constructor.
