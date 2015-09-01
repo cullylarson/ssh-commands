@@ -28,7 +28,7 @@ php composer.phar require cullylarson/ssh-commands
     $ eval `ssh-agent -s` && ssh-add
     ```
 
-1. Create an instance of `Cully\Ssh\Command`, passing your connection resources to the constructor.
+1. Create an instance of `Cully\Ssh\Command`, passing your connection resource to the constructor.
 
     ```
     <?php
@@ -36,7 +36,7 @@ php composer.phar require cullylarson/ssh-commands
     $command = new Cully\Ssh\Command($session);
     ```
 
-1. Execute your command.  The `exec` function takes all of the parameters that `ssh2_exec` takes,
+1. Execute your command.  The `exec` function takes all of the parameters that [ssh2_exec](http://php.net/ssh2_exec) takes,
 except for the connection resource (since it was passed in the construtor).
 
     ```
