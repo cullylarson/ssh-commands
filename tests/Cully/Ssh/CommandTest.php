@@ -59,6 +59,24 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($command->hasRun());
     }
 
+    public function testHasntRun() {
+        $command = new Command($this->session);
+
+        $this->assertFalse($command->hasRun());
+    }
+
+    public function testNoFailureWhenNotRun() {
+        $command = new Command($this->session);
+
+        $this->assertFalse($command->failure());
+    }
+
+    public function testNoSuccessWhenNotRun() {
+        $command = new Command($this->session);
+
+        $this->assertFalse($command->success());
+    }
+
     public function testAssertFailExitStatus() {
         $command = new Command($this->session);
 
