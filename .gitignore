@@ -8,7 +8,3 @@ phpunit.xml
 
 # this is the code coverage generated when running phpunit.
 tests/log
-
-# test temp folder
-tests/tmp/*
-!tests/tmp/.gitkeep
