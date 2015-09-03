@@ -19,9 +19,6 @@
         <whitelist>
             <directory suffix=".php">src/Cully/Ssh/</directory>
         </whitelist>
-        <blacklist>
-            <directory>test/tmp</directory>
-        </blacklist>
     </filter>
 
     <logging>
