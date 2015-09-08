@@ -38,22 +38,34 @@ class Command implements ICommand {
         $this->session = $session;
     }
 
+    public function exec($command, $cwd=null, array $env=[]) {
+        $this->execTerm($command, $cwd, null, $env);
+    }
+
     /**
-     * These parameters match those passed to the ssh2_exec function.
+     * These parameters match those passed to the ssh2_exec function, except for the second
+     * parameter, $cwd.
      *
      * @param $command
+     * @param string|null $cwd
      * @param string|null $pty
      * @param array $env
      * @param int $width
      * @param int $height
      * @param int $width_height_type
      */
-    public function exec($command, $pty=null, array $env=[], $width=80, $height=25, $width_height_type = SSH2_TERM_UNIT_CHARS) {
+    public function execTerm($command, $cwd=null, $pty=null, array $env=[], $width=80, $height=25, $width_height_type = SSH2_TERM_UNIT_CHARS) {
+        $commandAugmented = $command;
+        // if we need to change the cwd
+        if( $cwd !== null ) {
+            $cwdEscaped = escapeshellarg($cwd);
+            $commandAugmented = "cd {$cwdEscaped}; {$commandAugmented}";
+        }
         // tack on the exit status so we can get it later
-        $commandWithExit = $command . ';echo -en "\n$?"';
+        $commandAugmented .= ';echo -en "\n$?"';
 
         // execute the command
-        $stream = ssh2_exec($this->session, $commandWithExit, $pty, $env, $width, $height, $width_height_type);
+        $stream = ssh2_exec($this->session, $commandAugmented, $pty, $env, $width, $height, $width_height_type);
 
         /*
          * Get the output
