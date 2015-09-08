@@ -2,7 +2,9 @@
 
 namespace Cully\Ssh;
 
-class Command {
+use Cully\ICommand;
+
+class Command implements ICommand {
     /**
      * @var resource
      */
