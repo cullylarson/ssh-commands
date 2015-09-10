@@ -36,13 +36,20 @@ php composer.phar require cullylarson/ssh-commands
     $command = new Cully\Ssh\Command($session);
     ```
 
-1. Execute your command.  The `exec` function takes all of the parameters that [ssh2_exec](http://php.net/ssh2_exec) takes,
-except for the connection resource (since it was passed in the construtor).
+1. Execute your command.  The `exec` function takes the command you want to execute (e.g. `ls`), and optionally, the current working directory (the folder from which you want to execute the command), and an array of environment variables to make available to the command.
 
     ```
     <?php
     
     $command->exec("ls");
+    ```
+
+1. Alternatively, you can execute commands using the `execTerm` function.  This exposes all of the parameters that [ssh2_exec](http://php.net/ssh2_exec) takes, except for the connection resource (since it was passed in the construtor), and `$cwd`.
+
+    ```
+    <?php
+    
+    $command->execTerm("ls");
     ```
 
 1.  At this point, you have access to a few results:
@@ -57,3 +64,22 @@ except for the connection resource (since it was passed in the construtor).
     $command->getOutput();     // the standard output from the last command
     $command->getError();      // the error output from the last command
     ```
+
+## The `exec` Function
+
+1. `$command` _(string)_ The command you want to execute (e.g. `ls`).
+
+1. `$cwd` _(string)_ _(optional, default: null)_ The current working directory
+(the folder you want to execute the command in).
+
+1. `$env` _(array)_ _(optional, default: [])_ An array of environment variable
+that you want to make available to the command.
+
+## The `execTerm` Function
+
+1. `$command` _(string)_ The command you want to execute (e.g. `ls`).
+
+1. `$cwd` _(string)_ _(optional, default: null)_ The current working directory
+(the folder you want to execute the command in).
+
+1. The rest of the parameters are the same as those passed to [ssh2_exec](http://php.net/ssh2_exec).
